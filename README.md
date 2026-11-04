@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/images/banner.png" alt="quarrydb" width="900"></p>
+
 # quarrydb
 
 **An embedded SQL database written from scratch in pure Python. One file, zero dependencies, every layer readable.**
@@ -28,6 +30,8 @@ quarry> EXPLAIN SELECT * FROM notes WHERE id = 2;
 | SEARCH TABLE notes USING INTEGER PRIMARY KEY (rowid=?)    |
 +-----------------------------------------------------------+
 ```
+
+<p align="center"><img src="docs/images/shell.png" alt="quarrydb shell session" width="820"></p>
 
 ## Why
 
@@ -106,6 +110,8 @@ quarrydb [database] [-c SQL]... [--mode table|csv|json|line|list]
 Dot-commands: `.tables`, `.schema [TABLE]`, `.indexes`, `.mode`, `.headers`, `.timer`, `.dump`, `.read FILE`, `.open FILE`, `.stats`, `.check`, `.help`, `.quit`. Statements end with `;` and may span lines.
 
 ## How it is built
+
+<p align="center"><img src="docs/images/architecture.png" alt="Architecture: SQL front end, planner and executor, storage structures, pager" width="900"></p>
 
 ```
              SQL text
