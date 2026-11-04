@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python: ["3.8", "3.10", "3.12", "3.13"]
+        exclude:
+          - os: macos-latest
+            python: "3.8"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run tests
+        run: python -m unittest discover -s tests -v
+      - name: Smoke-test the shell
+        run: python -m quarrydb -c "SELECT 'hello' AS greeting, 2 + 2 AS four" --mode csv
+      - name: Benchmark (small)
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        run: python bench/bench.py 10000
