@@ -364,11 +364,11 @@ class TransactionAndFileTests(unittest.TestCase):
         db.close()
 
     def test_lock(self):
-        db = quarrydb.connect(self.path)
         try:
             import fcntl  # noqa: F401
         except ImportError:
-            self.skipTest("no fcntl")
+            self.skipTest("advisory locking needs fcntl (POSIX only)")
+        db = quarrydb.connect(self.path)
         with self.assertRaises(quarrydb.LockError):
             quarrydb.connect(self.path)
         db.close()
