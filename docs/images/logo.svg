@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f2630"/><stop offset="1" stop-color="#0f141a"/>
+    </linearGradient>
+    <linearGradient id="stone" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8c58a"/><stop offset="1" stop-color="#c9973f"/>
+    </linearGradient>
+    <linearGradient id="stone2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b06a"/><stop offset="1" stop-color="#b47f2a"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#bg)"/>
+  <!-- three quarried slabs stacked as a database cylinder -->
+  <g transform="translate(128 132)">
+    <ellipse cx="0" cy="54" rx="72" ry="22" fill="#0b0f13" opacity="0.6"/>
+    <path d="M-68 24 L68 24 L68 50 Q68 68 0 68 Q-68 68 -68 50 Z" fill="url(#stone2)"/>
+    <path d="M-68 -14 L68 -14 L68 12 Q68 30 0 30 Q-68 30 -68 12 Z" fill="url(#stone)"/>
+    <path d="M-68 -52 L68 -52 L68 -26 Q68 -8 0 -8 Q-68 -8 -68 -26 Z" fill="url(#stone2)"/>
+    <ellipse cx="0" cy="-52" rx="68" ry="18" fill="#f3dcae"/>
+    <!-- chisel marks -->
+    <g stroke="#7a5418" stroke-width="3" stroke-linecap="round" opacity="0.55">
+      <path d="M-40 -36 l10 -4"/><path d="M14 -40 l12 -3"/><path d="M-22 2 l14 -4"/><path d="M30 0 l10 -3"/><path d="M-48 40 l12 -4"/><path d="M8 38 l14 -4"/>
+    </g>
+    <!-- a crack: the "quarry" cut -->
+    <path d="M-10 -70 l6 10 l-8 10 l10 12" fill="none" stroke="#7a5418" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
+  </g>
+</svg>

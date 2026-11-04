@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="720" viewBox="0 0 1240 720" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif">
+  <rect width="1240" height="720" fill="#0d1117"/>
+  <text x="620" y="48" text-anchor="middle" font-size="26" font-weight="700" fill="#f3dcae">How a statement flows through quarrydb</text>
+  <defs><marker id="a" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#8b949e"/></marker></defs>
+  <g font-size="13.5" fill="#c9d1d9">
+    <!-- layer boxes -->
+    <rect x="60" y="80" width="1120" height="90" rx="12" fill="#161b22" stroke="#30363d"/>
+    <text x="85" y="110" font-size="18" font-weight="700" fill="#79c0ff">SQL front end</text>
+    <text x="85" y="136">sql/lexer.py → tokens      sql/parser.py → AST (sql/ast.py)      sqlgen.py → SQL text for EXPLAIN / DEFAULT / CHECK</text>
+    <text x="85" y="158" fill="#8b949e">Hand-written tokenizer and recursive-descent parser with SQLite precedence rules; statements are cached per connection.</text>
+
+    <rect x="60" y="200" width="1120" height="120" rx="12" fill="#161b22" stroke="#30363d"/>
+    <text x="85" y="230" font-size="18" font-weight="700" fill="#79c0ff">Planner and executor</text>
+    <text x="85" y="256">sql/executor.py   access paths: rowid lookup › index equality › rowid range › index range › scan; predicate push-down; EXPLAIN</text>
+    <text x="85" y="280">sql/compiler.py   expressions → Python closures (row mode / group mode), correlated subqueries via a shared outer-row cell</text>
+    <text x="85" y="304">sql/values.py · sql/functions.py   three-valued logic, affinity, LIKE/GLOB, 60 scalar + 8 aggregate functions</text>
+
+    <rect x="60" y="350" width="1120" height="120" rx="12" fill="#161b22" stroke="#30363d"/>
+    <text x="85" y="380" font-size="18" font-weight="700" fill="#79c0ff">Storage structures</text>
+    <text x="85" y="406">catalog.py   tables, columns, indexes and AUTOINCREMENT sequences in a system B+tree (JSON values)</text>
+    <text x="85" y="430">btree.py     B+tree: splits, merges on delete, linked leaves for range scans, overflow chains for large values</text>
+    <text x="85" y="454">encoding.py  varint row records; order-preserving keys (NULL &lt; numbers &lt; text &lt; blob, ints and reals interleave)</text>
+
+    <rect x="60" y="500" width="1120" height="120" rx="12" fill="#161b22" stroke="#30363d"/>
+    <text x="85" y="530" font-size="18" font-weight="700" fill="#79c0ff">Pager</text>
+    <text x="85" y="556">pager.py     4 KiB pages, header, free list, page cache, advisory file lock, statement-level undo journal</text>
+    <text x="85" y="580">             write-ahead log: CRC-checked frames + commit marker, fsync, replay or discard on open</text>
+    <text x="85" y="604" fill="#8b949e">commit = flush nodes → append frames to WAL → fsync → write main file → fsync → truncate WAL</text>
+
+    <!-- arrows -->
+    <g stroke="#8b949e" stroke-width="2" marker-end="url(#a)">
+      <path d="M620 170 V196"/><path d="M620 320 V346"/><path d="M620 470 V496"/>
+    </g>
+    <text x="640" y="188" font-size="13" fill="#8b949e">AST</text>
+    <text x="640" y="338" font-size="13" fill="#8b949e">get / insert / delete / scan(lo, hi)</text>
+    <text x="640" y="488" font-size="13" fill="#8b949e">read / write / allocate / free / commit / rollback</text>
+
+    <!-- disk -->
+    <rect x="60" y="650" width="1120" height="46" rx="10" fill="#0b0f13" stroke="#c9973f"/>
+    <text x="620" y="679" text-anchor="middle" font-size="15" fill="#e8c58a">app.qdb  (pages)        app.qdb-wal  (log, empty between commits)</text>
+    <path d="M620 620 V646" stroke="#8b949e" stroke-width="2" marker-end="url(#a)"/>
+  </g>
+</svg>
